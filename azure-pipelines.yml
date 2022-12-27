@@ -60,14 +60,15 @@ stages:
     - bash: |
         docker build -t hlbuildimage -f Dockerfile .
         echo "------"
-        docker run --name hlbuildcontainer hlbuildimage &
+      #  docker run --name hlbuildcontainer hlbuildimage &
+        docker save hlbuildcontainer > $(Build.ArtifactStagingDirectory)/docker_image.tar
         echo "------"
-        docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
+      #  docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
       displayName: Build high-level Azure Sphere application in a container
     - task: PublishBuildArtifacts@1
       displayName: Publish build artifacts
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/HLOutput/Blink.imagepackage'
-        ArtifactName: 'BlinkSample.imagepackage'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+        ArtifactName: 'docker_image'
         publishLocation: 'Container'
 
