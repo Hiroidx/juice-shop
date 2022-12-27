@@ -59,7 +59,10 @@ stages:
     steps:
     - bash: docker build -t hlbuildimage -f . 
       bash: docker run --name hlbuildcontainer hlbuildimage && docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
-      displayName: Build high-level Azure Sphere application in a container and copy the output
+      displayName: Build high-level Azure Sphere application in a container
+    - bash: docker run --name hlbuildcontainer hlbuildimage && docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
+      displayName: Build high-level Azure Sphere application copy the output
+
     - task: PublishBuildArtifacts@1
       displayName: Publish build artifacts
       inputs:
