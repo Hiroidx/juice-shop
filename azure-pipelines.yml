@@ -57,14 +57,15 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: docker build -t hlbuildimage -f . 
+    - bash: |
+        docker build -t hlbuildimage -f . 
+        docker run --name hlbuildcontainer hlbuildimage
+        docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
       displayName: Build high-level Azure Sphere application in a container
-    steps:
-    - bash: docker run --name hlbuildcontainer hlbuildimage && docker cp hlbuildcontainer:/out $(Build.ArtifactStagingDirectory)/HLOutput
-      displayName: Build high-level Azure Sphere application in copy the output2
     - task: PublishBuildArtifacts@1
       displayName: Publish build artifacts
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/HLOutput/Blink.imagepackage'
         ArtifactName: 'BlinkSample.imagepackage'
         publishLocation: 'Container'
+
