@@ -59,10 +59,8 @@ stages:
     steps:
     - bash: |
         docker build -t hlbuildimage -f Dockerfile .
-        echo "------"
         docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
-        echo "------"
-      displayName: Build high-level Azure Sphere application in a container
+      displayName: Build JuiceShop Docker container
     - task: PublishBuildArtifacts@1
       displayName: Publish build artifacts
       inputs:
