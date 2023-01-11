@@ -60,8 +60,6 @@ stages:
     - bash: |
         docker build -t hlbuildimage -f Dockerfile .
         docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
-      displayName: Build JuiceShop Docker container
-    - bash: |
         az devops login --organization https://dev.azure.com/yh8512/
         az artifacts universal publish --organization https://dev.azure.com/yh8512/ --project="TEST_JuiceShop" --scope project --feed test_feed --name JuiceShopDokerImage --version 0.0.1 --description "Test Docker Imange" --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
 
