@@ -61,7 +61,7 @@ stages:
       displayName: Dockder Build
         docker build -t hlbuildimage -f Dockerfile .
         docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
-    steps:
+
     - bash: |
       displayName: Publish build artifacts(UP)
         az devops login --organization https://dev.azure.com/yh8512/
