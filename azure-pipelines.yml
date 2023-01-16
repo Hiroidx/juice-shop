@@ -69,7 +69,8 @@ stages:
         command: 'publish'
         publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
         vstsFeedPublish: 'TEST_JuiceShop/test_feed'
-        packagePublishDescription: 'Docker image file.'
+        vstsFeedPackagePublish: 'DockerImage'
+        packagePublishDescription: 'Dockerimagefile'
 
 #    - task: PublishBuildArtifacts@1
 #      displayName: Publish build artifacts
