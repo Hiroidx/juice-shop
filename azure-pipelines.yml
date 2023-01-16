@@ -71,7 +71,7 @@ stages:
       displayName: 'Universal publish'
       inputs:
         command: 'publish'
-        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
         vstsFeedPublish: 'TEST_JuiceShop/test_feed'
         vstsFeedPackagePublish: 'docker-image'
         packagePublishDescription: 'Dockerimagefile'
