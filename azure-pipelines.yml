@@ -62,6 +62,9 @@ stages:
         docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
       displayName: Dockder Build.
 
+    - bash: |
+        echo "#####" | az devops login https://dev.azure.com/yh8512/
+      displayName: Azure Devops Login.
 
     - task: UniversalPackages@0
       displayName: 'Universal publish'
