@@ -63,7 +63,7 @@ stages:
       displayName: Dockder Build.
 
     - bash: |
-        echo $(System.AccessToken) | az devops login https://dev.azure.com/yh8512/
+        echo "$(System.AccessToken)" | az devops login https://dev.azure.com/yh8512/
       displayName: Azure Devops Login.
 
     - task: UniversalPackages@0
