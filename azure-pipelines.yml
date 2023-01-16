@@ -64,16 +64,18 @@ stages:
 
     - bash: |
         echo "$(System.AccessToken)" | az devops login --organization https://dev.azure.com/yh8512/
-      displayName: Azure Devops Login.
+        az artifacts universal publish --organization https://dev.azure.com/yh8512/ --scope project --feed test_feed --name JuiceShopDokerImage --version 0.0.1 --description 'Test Doker Image' --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+      displayName: Universal publish
 
-    - task: UniversalPackages@0
-      displayName: 'Universal publish'
-      inputs:
-        command: 'publish'
-        publishDirectory: '$(Build.ArtifactStagingDirectory)'
-        vstsFeedPublish: 'TEST_JuiceShop/test_feed'
-        vstsFeedPackagePublish: 'DockerImage'
-        packagePublishDescription: 'Dockerimagefile'
+
+#    - task: UniversalPackages@0
+#      displayName: 'Universal publish'
+#      inputs:
+#        command: 'publish'
+#        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+#        vstsFeedPublish: 'TEST_JuiceShop/test_feed'
+#        vstsFeedPackagePublish: 'DockerImage'
+#        packagePublishDescription: 'Dockerimagefile'
 
 #    - task: PublishBuildArtifacts@1
 #      displayName: Publish build artifacts
