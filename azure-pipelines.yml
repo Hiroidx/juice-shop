@@ -62,11 +62,14 @@ stages:
         docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
       displayName: Dockder Build.
 
-    - bash: |
-        az extension add --name azure-devops
-        az login --allow-no-subscriptions
-        az artifacts universal publish --organization https://dev.azure.com/yh8512/ --project="TEST_JuiceShop" --scope project --feed test_feed --name JuiceShopDokerImage --version 0.0.1 --description "Test Docker Imange" --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
-      displayName: Publish build artifacts.
+
+    - task: UniversalPackages@0
+      displayName: 'Universal publish'
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+        vstsFeedPublish: 'TEST_JuiceShop/test_feed'
+        packagePublishDescription: 'Docker image file.'
 
 #    - task: PublishBuildArtifacts@1
 #      displayName: Publish build artifacts
