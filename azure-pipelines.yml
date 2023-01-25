@@ -56,6 +56,7 @@ stages:
     displayName: Build
     pool:
       vmImage: 'ubuntu-latest'
+    environment: 'Dev'
     steps:
     - bash: |
         docker build -t hlbuildimage -f Dockerfile .
