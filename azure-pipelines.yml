@@ -57,24 +57,26 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     environment: Dev
-    steps:
-    - bash: |
-        docker build -t hlbuildimage -f Dockerfile .
-        docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
-      displayName: Dockder Build.
-
-    - bash: |
-        echo "$(System.AccessToken)" | az devops login --organization https://dev.azure.com/yh8512/
-#        az artifacts universal publish --organization https://dev.azure.com/yh8512/ --project='TEST_JuiceShop' --scope project --feed test_feed --name 'juice-shop-dokerimage' --version 0.0.1 --description 'Test Doker Image' --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
-      displayName: Universal publish
-    - task: UniversalPackages@0
-      displayName: 'Universal publish'
-      inputs:
-        command: 'publish'
-        publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
-        vstsFeedPublish: 'TEST_JuiceShop/test_feed'
-        vstsFeedPackagePublish: 'docker-image'
-        packagePublishDescription: 'Dockerimagefile'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - bash: |
+              docker build -t hlbuildimage -f Dockerfile .
+              docker save hlbuildimage > $(Build.ArtifactStagingDirectory)/docker_image.tar
+            displayName: Dockder Build.
+          - bash: |
+              echo "$(System.AccessToken)" | az devops login --organization https://dev.azure.com/yh8512/
+#              az artifacts universal publish --organization https://dev.azure.com/yh8512/ --project='TEST_JuiceShop' --scope project --feed test_feed --name 'juice-shop-dokerimage' --version 0.0.1 --description 'Test Doker Image' --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+            displayName: Universal publish
+          - task: UniversalPackages@0
+            displayName: 'Universal publish'
+            inputs:
+              command: 'publish'
+              publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+              vstsFeedPublish: 'TEST_JuiceShop/test_feed'
+              vstsFeedPackagePublish: 'docker-image'
+              packagePublishDescription: 'Dockerimagefile'
 
 #    - task: PublishBuildArtifacts@1
 #      displayName: Publish build artifacts
