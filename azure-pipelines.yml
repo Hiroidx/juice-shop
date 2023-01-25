@@ -52,7 +52,7 @@ stages:
 - stage: Build
   displayName: Build image
   jobs:
-  - job: Build
+  - Deployment: Build
     displayName: Build
     pool:
       vmImage: 'ubuntu-latest'
@@ -67,7 +67,6 @@ stages:
         echo "$(System.AccessToken)" | az devops login --organization https://dev.azure.com/yh8512/
 #        az artifacts universal publish --organization https://dev.azure.com/yh8512/ --project='TEST_JuiceShop' --scope project --feed test_feed --name 'juice-shop-dokerimage' --version 0.0.1 --description 'Test Doker Image' --path '$(Build.ArtifactStagingDirectory)/docker_image.tar'
       displayName: Universal publish
-
     - task: UniversalPackages@0
       displayName: 'Universal publish'
       inputs:
