@@ -76,12 +76,12 @@ stages:
       displayName: Universal publish
     - task: UniversalPackages@0
       displayName: 'Universal publish'
-        inputs:
-          command: 'publish'
-          publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
-          vstsFeedPublish: 'TEST_JuiceShop/test_feed'
-          vstsFeedPackagePublish: 'docker-image'
-          packagePublishDescription: 'Dockerimagefile'
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)/docker_image.tar'
+        vstsFeedPublish: 'TEST_JuiceShop/test_feed'
+        vstsFeedPackagePublish: 'docker-image'
+        packagePublishDescription: 'Dockerimagefile'
 
 #    - task: PublishBuildArtifacts@1
 #      displayName: Publish build artifacts
