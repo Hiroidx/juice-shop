@@ -49,8 +49,8 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: AprovalRQ
-  displayName: AprovalRQ
+- stage: ApprovalRequest
+  displayName: ApprovalRequest
   jobs:
   - deployment: AP
     displayName: AP
