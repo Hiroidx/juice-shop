@@ -52,7 +52,7 @@ stages:
 - stage: Build
   displayName: Build image
   jobs:
-  - Deployment: Build
+  - deployment: Build
     displayName: Build
     pool:
       vmImage: 'ubuntu-latest'
